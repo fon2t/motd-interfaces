@@ -8,18 +8,18 @@ The easiest way to install is via wget.
 For Ubuntu distros, MOTD is in /etc/update-motd.d/
 
 Access the MOTD folder and perform wget using sudo:
-'''
+```
 cd /etc/update-motd.d/
 sudo wget https://raw.githubusercontent.com/fon2t/motd-interfaces/main/01-interfaces
 sudo chmod 744 01-interfaces
-'''
+```
 
 **That's it!** Logout from your terminal and log back in.
 
 # Example
 
 The output should be something like:
-'''
+```
 Current Network Configuration
 +-----------+-------------------+-----------------------------------------+
 | Interface | MAC Address       | IP Addresses                            |
@@ -31,4 +31,4 @@ Current Network Configuration
 | ens5      | 11:22:33:44:55:88 | 172.10.400.5                            |
 |           |                   | 2123:e20d:9bbb:dead::5                  |
 +-----------+-------------------+-----------------------------------------+
-'''
+```

@@ -10,7 +10,7 @@ The easiest way to install is via wget.
 For Ubuntu distros, MOTD is in /etc/update-motd.d/
 
 Access the MOTD folder and perform wget using sudo:
-```
+```bash
 cd /etc/update-motd.d/
 sudo wget https://raw.githubusercontent.com/fon2t/motd-interfaces/main/01-interfaces
 sudo chmod 744 01-interfaces
@@ -21,7 +21,7 @@ sudo chmod 744 01-interfaces
 # Example
 
 The output should be something like:
-```
+```bash
 Current Network Configuration
 +-----------+-------------------+-----------------------------------------+
 | Interface | MAC Address       | IP Addresses                            |

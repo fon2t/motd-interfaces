@@ -1,0 +1,74 @@
+#!/bin/sh
+# Outputs the interfaces
+# Omits loopback and IPv6 link local addresses
+#
+# Nick Route 13 July 2024
+#
+#!/bin/sh
+
+# Define colors using tput
+# tput variables don't work in motd
+#green=$(tput setaf 2)    # Green color
+#bold=$(tput bold)        # Bold text
+#reset=$(tput sgr0)       # Reset to default color
+# Define colors using ANSI escape codes
+green='\033[0;32m'
+bold='\033[1m'
+reset='\033[0m'
+
+# Function to print a row in the table
+print_row() {
+    iface="$1"
+    mac="$2"
+    ip="$3"
+    printf "| %-9s | %-17s | %-39s |\n" "$iface" "$mac" "$ip"
+}
+
+repeat_chars() {
+    local length="$1"
+    local char="$2"
+    printf "%-${length}s" | tr ' ' "$char"
+}
+
+print_header() {
+printf "+"; repeat_chars 11 "-"; printf "+"; repeat_chars 19 "-"
+printf "+"; repeat_chars 41 "-"; printf "+\n"
+}
+
+export TERM=xterm-256color
+
+# Print table header with colored text
+printf "${green}Current Network Configuration${reset}\n"
+print_header
+printf "| ${green}${bold}Interface${reset} | ${green}${bold}MAC Address${reset}%-7s| ${green}${bold}IP Addresses${reset}%-28s|\n"
+print_header
+#printf "+-----------+-------------------+-----------------------------------------+\n"
+
+# Initialize a variable to keep track of the last printed interface
+last_iface=""
+
+# Collect and format the data
+ip -o addr show | awk '/inet/ && $2 != "lo" {
+    split($4, a, "/");
+    if (a[1] !~ /^fe80:/) {
+        print $2, a[1];
+    }
+}' | while IFS= read -r line; do
+    iface=$(echo "$line" | awk '{print $1}')
+    ip=$(echo "$line" | awk '{print $2}')
+    if [ "$iface" != "$last_iface" ]; then
+        # Get MAC address for the new interface
+        mac=$(ip -o link show "$iface" | awk '{print $17}')
+        # Print the first row for the interface
+        print_row "$iface" "$mac" "$ip"
+        # Update last printed interface
+        last_iface="$iface"
+    else
+        # Print additional IP addresses for the same interface
+        print_row "" "" "$ip"
+    fi
+done
+
+# Print table footer
+print_header
+

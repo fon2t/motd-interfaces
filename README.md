@@ -42,4 +42,3 @@ sudo chmod 644 50-motd-news
 sudo chmod 644 85-fwupd
 sudo chmod 644 90-updates-available
 ```
-``

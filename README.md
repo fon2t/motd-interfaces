@@ -1,4 +1,4 @@
-# motd-interfaces
+# motd Interfaces
 Shell script to be used in message-of-the-day (motd) to summarise interfaces on login.
 
 The script will parse all interfaces on a linux host ignoring the loopback interface.
@@ -7,7 +7,7 @@ Link-local IPv6 addresses will also be ignored.
 # Installation
 The easiest way to install is via wget.
 
-For Ubuntu distros, MOTD is in /etc/update-motd.d/
+For Ubuntu distros, motd is in /etc/update-motd.d/
 
 Access the MOTD folder and perform wget using sudo:
 ```bash
@@ -34,3 +34,12 @@ Current Network Configuration
 |           |                   | 2123:e20d:9bbb:dead::5                  |
 +-----------+-------------------+-----------------------------------------+
 ```
+# Further information
+
+If you want to tidy up some of the noise in motd, change the permissions on the following files:
+```bash
+sudo chmod 644 50-motd-news
+sudo chmod 644 85-fwupd
+sudo chmod 644 90-updates-available
+```
+``

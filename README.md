@@ -1,6 +1,8 @@
 # motd-interfaces
 Shell script to be used in message-of-the-day (motd) to summarise interfaces on login.
 
+The script will parse all interfaces on a linux host ignoring the loopback interface.
+Link-local IPv6 addresses will also be ignored.
 
 # Installation
 The easiest way to install is via wget.
